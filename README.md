@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beanify — Premium Bean Bags & Home Living
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · Lucide.
+Customers browse, pick a colour/size, then **order on WhatsApp** (pre-filled message). There is no online checkout.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configure before launch
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` → `.env.local`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Orders/chat number — digits only, country code first (e.g. `919876543210`). Read in `src/constants/site.ts` as `WHATSAPP_NUMBER`. |
+| `NEXT_PUBLIC_SITE_URL` | Production URL — used for canonical links, sitemap, Open Graph and structured data. |
 
-## Learn More
+Also review `src/constants/site.ts` (email, location) — both are placeholders.
 
-To learn more about Next.js, take a look at the following resources:
+## Where things live
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                 routes: /, /shop, /shop/[slug], /about, /contact, /faq,
+│                        /privacy-policy, /terms-and-conditions, sitemap, robots, 404
+├── components/
+│   ├── ui/              Button, Accordion, ScrollReveal, ImageReveal, SectionHeading, Logo, Rating…
+│   ├── layout/          Navbar, MobileMenu, Footer, SearchDialog, WishlistDrawer, Providers
+│   ├── sections/        Hero, TrustStrip, FeaturedCollection, CategorySection, LifestyleSection,
+│   │                    WhyBeanify, InstagramGrid, TestimonialSlider, CTASection, PageHero, LegalPage
+│   ├── shop/            ProductCard, ProductGrid, ShopBrowser (filters/sort), WishlistButton
+│   ├── product/         ProductView, ImageGallery, ProductInfo, ProductDetails, WhyYoullLoveIt
+│   ├── whatsapp/        WhatsAppButton (floating), WhatsAppOrderButton
+│   ├── forms/           ContactForm (react-hook-form + zod)
+│   └── seo/             JsonLd
+├── data/                products.ts, faqs.ts, legal.ts, content.ts  ← edit copy/products here
+├── lib/                 whatsapp.ts (message + URL builder), products.ts (data-access), seo.ts, utils.ts
+├── constants/           site.ts, navigation.ts
+├── services/            enquiry.ts (contact form → WhatsApp; swap for an API later)
+└── types/               product.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Adding / editing a product
+Edit `src/data/products.ts`. Sizes carry their own price; the WhatsApp message uses the selected
+colour, size, quantity and price. `src/lib/products.ts` is the only place that reads the data, so
+moving to an API/CMS later means changing that one file.
 
-## Deploy on Vercel
+### Images
+No photography was supplied, so `public/images/**` holds **generated placeholder illustrations**
+(`node scripts/generate-art.mjs`). Replace them with real photos (4:5 portrait works best for products and
+scenes) and update the paths in `src/data/*.ts` / `src/data/content.ts` if the file extension changes.
+The Beanify logo variants in `public/assets/` are generated from `beenify-logo.png` by
+`node scripts/process-logo.mjs`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content to confirm (placeholders)
+Materials, dimensions, prices, ratings/review counts, testimonials, delivery time (5–7 days), return
+window (7 days), COD wording, email/location, and the Privacy/Terms text are all **sample content** —
+verify or replace them, and have the legal pages reviewed.
+Star ratings are shown in the UI but deliberately left out of structured data until they are real.
+"# beanify" 
