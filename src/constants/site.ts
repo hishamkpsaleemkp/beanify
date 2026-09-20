@@ -3,7 +3,7 @@
  * Change the WhatsApp number in `.env.local` (NEXT_PUBLIC_WHATSAPP_NUMBER) — digits only,
  * country code first, no "+" or spaces. Example (India): 919876543210
  */
-export const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "919999999999").replace(/\D/g, "");
+export const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918921979636").replace(/\D/g, "");
 
 export const SITE = {
   name: "Beanify",
@@ -17,7 +17,8 @@ export const SITE = {
   locale: "en_IN",
   currency: "INR",
   email: "hello@beanify.in", // placeholder — replace with the real address
-  location: "India · Delivering across the country", // placeholder
-  instagram: { handle: "@beanify.online", url: "https://www.instagram.com/beanify.online" },
+  location: "Perinthalmanna, Malappuram, Kerala 679322",
+  address: { locality: "Perinthalmanna", district: "Malappuram", region: "Kerala", postalCode: "679322", country: "IN" },
+  instagram: { handle: "@beanify.online", url: "https://www.instagram.com/beanify.online/" },
   copyrightYear: 2026,
 } as const;

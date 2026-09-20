@@ -13,6 +13,13 @@ export function organizationJsonLd() {
     slogan: SITE.tagline,
     description: SITE.description,
     sameAs: [SITE.instagram.url],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: SITE.address.locality,
+      addressRegion: SITE.address.region,
+      postalCode: SITE.address.postalCode,
+      addressCountry: SITE.address.country,
+    },
     contactPoint: [
       { "@type": "ContactPoint", contactType: "customer support", telephone: `+${WHATSAPP_NUMBER}`, availableLanguage: ["English", "Hindi"] },
     ],

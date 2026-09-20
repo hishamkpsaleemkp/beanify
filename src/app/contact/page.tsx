@@ -62,7 +62,7 @@ export default function ContactPage() {
                   </span>
                   <span className="min-w-0">
                     <span className="block text-xs font-bold tracking-[0.2em] text-muted uppercase">{item.label}</span>
-                    <span className="block truncate font-display text-lg font-bold text-ink">{item.value}</span>
+                    <span className="block font-display text-lg leading-snug font-bold break-words text-ink">{item.value}</span>
                   </span>
                 </>
               );
